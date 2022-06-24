@@ -9,6 +9,8 @@ object WallService {
     private var comments = emptyArray<Comments>()
     private var checkId: Int = 0
 
+    // посты
+
     fun add(post: Post): Post {
         checkId++
         val newPost = post.copy(id = checkId)
@@ -18,15 +20,14 @@ object WallService {
 
     fun likeById(id: Int) {
         for ((index, Post) in posts.withIndex()) if (Post.id == id) {
-            val post: Post = Post.copy(Post.id, likes = Post.likes.copy( count = Post.likes.count + 1))
+            val post: Post = Post.copy(Post.id, likes = Post.likes.copy(count = Post.likes.count + 1))
             posts[index] = post
         }
     }
 
     fun update(post: Post): Boolean {
 
-        for ((index,Post) in posts.withIndex())
-        {
+        for ((index, Post) in posts.withIndex()) {
             if (Post.id == post.id) {
                 posts[index] = post.copy()
                 return true
@@ -44,29 +45,33 @@ object WallService {
     //    }
     //}
 
-    fun createComment(postId: Int, comment: Comments): Comments{
-        for((index, Post) in posts.withIndex())
-                try{
-                    if (Post.id == postId){
-                        val post: Post = Post.copy(Post.id, likes = Post.likes.copy( count = Post.likes.count + 1))
-                        posts[index] = post
-                    }
-                }catch(PostNotFoundException: RuntimeException){
-                    println("Post not found")
-                }
-
-    }
-
     fun toString(num: Int): String {
         val check = num - 1
-        val post : Post = posts[check]
+        val post: Post = posts[check]
         return post.toString()
     }
 
-    fun attachToString(num: Int, num2: Int): String{
+    // приложения
+
+    fun attachToString(num: Int, num2: Int): String {
         val check = num - 1
-        val post : Post = posts[check]
-        val attachId =  post.attachments.toString(num2)
+        val post: Post = posts[check]
+        val attachId = post.attachments.toString(num2)
         return attachId
     }
+
+    // комментарии
+
+    fun createComment(postId: Int, comment: Comments): Comments {
+        for ((index, Post) in posts.withIndex()) if (Post.id == postId) {
+            comments += comment
+            return comments.last()
+        }
+        throw PostNotFoundException("Post not found")
+    }
+
+    fun toStringComList(): String {
+        return comments.toString()
+    }
+
 }

@@ -20,24 +20,28 @@ fun main() {
         description = "OneOfTheBestReviews",
         views = 10000
     )
-    val att3: Attachments = PhotoAttachment(
-        id = 3,
-        ownerId = 100111,
-        userId = 111101,
-        date = 17,
-        width = 210,
-        height = 210
-    )
-    val att4: Attachments = DocAttachment(
-        id = 4,
-        title = "LatestNews",
-        size = 179869184,
-        ext = "pdf"
-    )
     attachment1.add(att1)
     attachment1.add(att2)
-    attachment2.add(att3)
-    attachment2.add(att4)
+    attachment2.add(att1)
+    attachment2.add(att2)
+
+    val comment1: Comments = Comments(
+        id = 1,
+        text = "comment1",
+        canPost = true,
+        groupsCanPost = true,
+        canClose = true,
+        canOpen = true,
+    )
+
+    val comment2: Comments = Comments(
+    id = 2,
+        text = "comment2",
+        canPost = true,
+        groupsCanPost = false,
+        canClose = true,
+        canOpen = false,
+    )
 
     val post1: Post = Post(
         0,
@@ -81,7 +85,7 @@ fun main() {
         text = "Wazzuuuuuuup",
         replyOwnerId = 100002,
         replyPostId = 100002,
-        comments = Comments(101, true, true, true, true),
+        comments = Comments(101, "comment2",true, true, true, true),
         copyright = Copyright(100005, "link2", "name2", "type2"),
         likes = Likes(10001, true, true, true),
         reposts = Reposts(101, true),
@@ -108,10 +112,11 @@ fun main() {
     val service: WallService = WallService
 
     service.add(post1)
-    println(service.toString(1))
-    println(service.attachToString(1,1))
-    service.update(post2)
-    println(service.toString(1))
+    service.add(post2)
+    println(service.createComment(1, comment1).toString())
+    println(service.createComment(2, comment2).toString())
+    println(service.createComment(0, comment1).toString())
+
 
 
     //WallService.add(post1)

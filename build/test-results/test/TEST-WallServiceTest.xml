@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="WallServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-06-24T18:58:54" hostname="DESKTOP-H13KJDD" time="0.293">
+  <properties/>
+  <testcase name="createComment" classname="WallServiceTest" time="0.29"/>
+  <testcase name="shouldThrow" classname="WallServiceTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
